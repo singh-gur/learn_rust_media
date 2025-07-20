@@ -7,16 +7,6 @@ enum Media {
     Placeholder,
 }
 
-#[derive(Debug)]
-enum Response<T> {
-    Some(T),
-    None,
-}
-
-fn print_media(media: &Media) {
-    println!("Media: {:#?}", media)
-}
-
 impl Media {
     fn description(&self) -> String {
         match self {
@@ -53,10 +43,11 @@ impl Catalog {
         self.items.push(item);
     }
 
-    fn get_by_index(&self, index: usize) -> Response<&Media> {
-        match self.items.get(index) {
-            Some(item) => Response::Some(item),
-            None => Response::None,
+    fn get_by_index(&self, index: usize) -> Option<&Media> {
+        if index >= self.items.len() {
+            None
+        } else {
+            Some(&self.items[index])
         }
     }
 
@@ -97,9 +88,12 @@ fn main() {
     catalog.add(podcast);
     catalog.add(placeholder);
 
-    match catalog.get_by_index(1) {
-        Response::Some(item) => println!("{:?}", item.description()),
-        Response::None => println!("No item found"),
+    // let value = catalog.get_by_index(45).unwrap_or(&Media::Placeholder);
+    if let Some(value) = catalog.get_by_index(45) {
+        println!("{:#?}", value.description());
+    } else {
+        println!("Index out of bounds");
     }
+
     catalog.display();
 }
