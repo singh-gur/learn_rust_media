@@ -17,12 +17,6 @@ fn main() {
 
     let placeholder = Media::Placeholder;
     let podcast = Media::Podcast(12345);
-    // println!("{}", book1.description());
-    // println!("{}", movie.description());
-    // println!("{}", audiobook.description());
-    // print_media(&book1);
-    // print_media(&movie);
-    // print_media(&audiobook);
 
     let mut catalog = Catalog::new();
 
@@ -32,7 +26,6 @@ fn main() {
     catalog.add(podcast);
     catalog.add(placeholder);
 
-    // let value = catalog.get_by_index(45).unwrap_or(&Media::Placeholder);
     if let Some(value) = catalog.get_by_index(45) {
         println!("{:#?}", value.description());
     } else {
